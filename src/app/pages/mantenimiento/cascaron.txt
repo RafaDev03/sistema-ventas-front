@@ -31,17 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (provider of providers; track $index) {
-        <tr>
-          <td>{{ provider.id }}</td>
-          <td>{{ provider.nombre }}</td>
-          <td>{{ provider.correo }}</td>
-          <td>{{ provider.ruc }}</td>
-          <td>{{ provider.direccion }}</td>
-          <td>{{ provider.telefono }}</td>
-        </tr>
-
-        }
+        <tr></tr>
       </tbody>
     </table>
   </div>

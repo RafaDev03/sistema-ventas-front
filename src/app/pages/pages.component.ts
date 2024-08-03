@@ -3,6 +3,7 @@ import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-pages',
@@ -12,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
+    RouterOutlet,
   ],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.css',
