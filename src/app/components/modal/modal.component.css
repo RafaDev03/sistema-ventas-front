@@ -1,0 +1,40 @@
+.action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.action button {
+  margin-left: 10px;
+}
+
+.action button.mat-raised-button {
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.action button.mat-raised-button:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+}
+
+.action button[mat-dialog-close] {
+  background-color: #f44336; /* Color del botón de Cancelar */
+  color: white;
+}
+
+.action button[mat-dialog-close]:hover {
+  background-color: #c62828; /* Color del botón de Cancelar al pasar el ratón */
+}
+
+.action button[type="submit"] {
+  background-color: #4caf50; /* Color del botón de Submit */
+  color: white;
+}
+
+.action button[type="submit"]:hover {
+  background-color: #388e3c; /* Color del botón de Submit al pasar el ratón */
+}
