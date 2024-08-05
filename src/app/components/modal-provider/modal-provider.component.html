@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Formulario de Proveedores</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="providerForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Nombre" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Correo</mat-label>
+      <input matInput formControlName="correo" placeholder="Correo" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>RUC</mat-label>
+      <input matInput formControlName="ruc" placeholder="RUC" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" placeholder="Dirección" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" placeholder="Teléfono" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onCancel()"
+    class="btn btn-danger"
+  >
+    Cancelar
+  </button>
+  &nbsp; &nbsp;
+  <button
+    mat-button
+    [disabled]="providerForm.invalid"
+    (click)="guardarProvider()"
+    class="btn btn-primary"
+  >
+    {{ getTitle() }}
+  </button>
+</mat-dialog-actions>

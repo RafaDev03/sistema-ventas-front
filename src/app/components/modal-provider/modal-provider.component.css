@@ -1,0 +1,8 @@
+.example-full-width {
+  width: 100%;
+}
+
+.example-form {
+  display: flex;
+  flex-direction: column;
+}

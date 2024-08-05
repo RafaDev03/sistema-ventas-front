@@ -3,17 +3,17 @@
     <div class="card-head-row">
       <div class="card-title">Lista de Proveedores</div>
       <div class="card-tools">
-        <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
+        <!-- <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
           <span class="btn-label">
             <i class="fa fa-pencil"></i>
           </span>
           Export
-        </a>
+        </a> -->
         <a class="btn btn-label-info btn-round btn-sm" (click)="openModal()">
           <span class="btn-label">
-            <i class="fa fa-print"></i>
+            <i class="fas fa-plus"></i>
           </span>
-          Add
+          Agregar
         </a>
       </div>
     </div>
@@ -28,6 +28,7 @@
           <th scope="col">RUC</th>
           <th scope="col">Dirección</th>
           <th scope="col">Teléfono</th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -39,6 +40,18 @@
           <td>{{ provider.ruc }}</td>
           <td>{{ provider.direccion }}</td>
           <td>{{ provider.telefono }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="editProvider(provider)">
+              <i class="fas fa-edit"></i>
+            </button>
+            &nbsp; &nbsp;
+            <button
+              class="btn btn-danger"
+              (click)="deleteProvider(provider.id)"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
         </tr>
 
         }

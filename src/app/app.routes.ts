@@ -18,4 +18,11 @@ export const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/notpagefound/notpagefound.component').then(
+        (m) => m.NotpagefoundComponent
+      ),
+  },
 ];
