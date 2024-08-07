@@ -40,4 +40,9 @@ export class AuthService {
   setRefreshToken(refreshToken: string) {
     return localStorage.setItem('refreshToken', refreshToken);
   }
+
+  deleteAllTokens() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+  }
 }

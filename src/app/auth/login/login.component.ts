@@ -25,15 +25,15 @@ export class LoginComponent {
   });
 
   login() {
-    this.authService.login(this.loginForm.value as LoginInterface).subscribe(
-      (resp: any) => {
+    this.authService.login(this.loginForm.value as LoginInterface).subscribe({
+      next: (resp: any) => {
         if (resp.status) {
           this.router.navigateByUrl('/dashboard');
         } else {
           Swal.fire('Error', 'Ingresa las credenciales correctas', 'error');
         }
       },
-      (err) => {
+      error: (err) => {
         if (err.status === 401) {
           Swal.fire(
             'Error',
@@ -43,7 +43,7 @@ export class LoginComponent {
         } else {
           Swal.fire('Error', 'Ocurrió un error inesperado', 'error');
         }
-      }
-    );
+      },
+    });
   }
 }

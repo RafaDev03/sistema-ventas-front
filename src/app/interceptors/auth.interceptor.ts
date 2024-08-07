@@ -32,8 +32,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         catchError((refreshError) => {
           console.log('Entró en el error final');
           const finalError = new Error(refreshError);
-          localStorage.removeItem('token');
-          localStorage.removeItem('refreshToken');
+          authService.deleteAllTokens();
           return throwError(() => finalError);
         })
       );
