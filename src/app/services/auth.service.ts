@@ -21,11 +21,23 @@ export class AuthService {
     );
   }
 
+  refreshToken() {
+    console.log('Llamando al metodo refresh token');
+    const refreshToken = this.getRefreshToken();
+    return this.http.post(`${base_url}/auth/refresh`, { refreshToken });
+  }
+
   getAccessToken() {
     return localStorage.getItem('token');
+  }
+  setAccessToken(accessToken: string) {
+    return localStorage.setItem('token', accessToken);
   }
 
   getRefreshToken() {
     return localStorage.getItem('refreshToken');
+  }
+  setRefreshToken(refreshToken: string) {
+    return localStorage.setItem('refreshToken', refreshToken);
   }
 }

@@ -1,6 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
+import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
@@ -13,5 +14,29 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     },
   });
 
-  return next(authReq);
+  return next(authReq).pipe(
+    catchError((err: any) => {
+      console.log('Entro catch error');
+      return authService.refreshToken().pipe(
+        switchMap((res: any) => {
+          console.log('llamamos a metodo refersh');
+          authService.setAccessToken(res.jwt);
+          authService.setRefreshToken(res.refreshToken);
+          const newReq = req.clone({
+            setHeaders: {
+              Authorization: token ? `Bearer ${res.jwt}` : '',
+            },
+          });
+          return next(newReq);
+        }),
+        catchError((refreshError) => {
+          console.log('Entró en el error final');
+          const finalError = new Error(refreshError);
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          return throwError(() => finalError);
+        })
+      );
+    })
+  );
 };
