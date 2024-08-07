@@ -16,7 +16,16 @@ export class AuthService {
     return this.http.post(`${base_url}/auth/login`, LoginForm).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.jwt);
+        localStorage.setItem('refreshToken', resp.refreshToken);
       })
     );
+  }
+
+  getAccessToken() {
+    return localStorage.getItem('token');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
   }
 }

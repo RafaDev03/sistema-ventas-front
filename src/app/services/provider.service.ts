@@ -12,31 +12,18 @@ export class ProviderService {
   constructor(private http: HttpClient) {}
 
   findAll() {
-    return this.http.get(`${base_url}/proveedor/findAll`, this.headers);
+    return this.http.get(`${base_url}/proveedor/findAll`);
   }
 
   saveProvider(provider: ProviderInterface) {
-    return this.http.post(`${base_url}/proveedor/save`, provider, this.headers);
+    return this.http.post(`${base_url}/proveedor/save`, provider);
   }
 
   deleteProvider(id: number) {
-    return this.http.delete(`${base_url}/proveedor/delete/${id}`, this.headers);
+    return this.http.delete(`${base_url}/proveedor/delete/${id}`);
   }
 
   updateProvicer(id: number, provider: ProviderInterface) {
-    return this.http.put(
-      `${base_url}/proveedor/update/${id}`,
-      provider,
-      this.headers
-    );
-  }
-
-  get headers() {
-    const token = localStorage.getItem('token');
-    return {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    return this.http.put(`${base_url}/proveedor/update/${id}`, provider);
   }
 }
