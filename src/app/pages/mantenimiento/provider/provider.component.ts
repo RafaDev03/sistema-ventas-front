@@ -5,6 +5,7 @@ import { ModalService } from '../../../services/modal.service';
 import { ModalProviderComponent } from '../../../components/modal-provider/modal-provider.component';
 import { DataService } from '../../../services/data.service';
 import { NotificationsService } from '../../../services/notifications.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-provider',
@@ -19,6 +20,7 @@ export class ProviderComponent implements OnInit {
     private providerService: ProviderService,
     private modalService: ModalService,
     private dataService: DataService,
+    private authService: AuthService,
     private notificationsService: NotificationsService
   ) {}
   ngOnInit(): void {
@@ -54,5 +56,14 @@ export class ProviderComponent implements OnInit {
           });
         }
       });
+  }
+
+  refresh() {
+    this.authService.refreshToken().subscribe({
+      next: (response: any) => {
+        this.authService.updateTokens(response.jwt, response.refreshToken);
+      },
+      error: (err) => console.error('Error refreshing token:', err),
+    });
   }
 }

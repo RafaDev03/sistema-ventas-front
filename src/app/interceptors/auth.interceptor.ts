@@ -1,41 +1,41 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpInterceptorFn,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, EMPTY, switchMap, throwError } from 'rxjs';
+import { URL_AUTH_LOGIN, URL_AUTH_REFRESH } from '../services/urls';
+import { RefreshTokenManagerService } from '../services/refresh-token-manager.service';
+import { Router } from '@angular/router';
+import { ReturnStatement } from '@angular/compiler';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
+  const router = inject(Router);
 
-  const token = authService.getAccessToken();
+  if (req.url === URL_AUTH_LOGIN) {
+    return next(req);
+  }
 
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  });
+  if (req.url === URL_AUTH_REFRESH) {
+    console.log('dentro del refresh ---');
+    return next(req);
+  }
 
-  return next(authReq).pipe(
-    catchError((err: any) => {
-      console.log('Entro catch error');
-      return authService.refreshToken().pipe(
-        switchMap((res: any) => {
-          console.log('llamamos a metodo refersh');
-          authService.setAccessToken(res.jwt);
-          authService.setRefreshToken(res.refreshToken);
-          const newReq = req.clone({
-            setHeaders: {
-              Authorization: token ? `Bearer ${res.jwt}` : '',
-            },
-          });
-          return next(newReq);
-        }),
-        catchError((refreshError) => {
-          console.log('Entró en el error final');
-          const finalError = new Error(refreshError);
-          authService.deleteAllTokens();
-          return throwError(() => finalError);
-        })
-      );
-    })
-  );
+  if (authService.isRefreshing) {
+    console.log('****REFRESH TOKEN EN PROCESO, SE CANCELA LA PETICION****');
+    return EMPTY;
+  }
+
+  const accessToken = authService.getAccessToken;
+  const refreshToken = authService.getRefreshToken;
+  if (!accessToken || !refreshToken) {
+    router.navigateByUrl('/auth');
+    return EMPTY;
+  }
+
+  const requestClone = authService.addTokenHeader(req);
+  return next(requestClone);
 };
