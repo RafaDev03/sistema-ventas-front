@@ -29,9 +29,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return EMPTY;
   }
 
-  const accessToken = authService.getAccessToken;
-  const refreshToken = authService.getRefreshToken;
-  if (!accessToken || !refreshToken) {
+  const accessToken = authService.getAccessToken();
+  const refreshToken = authService.getRefreshToken();
+  console.log(`Access ${accessToken}`);
+  console.log(`Refres ${refreshToken}`);
+  if (accessToken === null || refreshToken === null) {
+    console.log('****NO SE ENCONTRÓ UN TOKEN, REDIRIGIENDO AL LOGIN****');
     router.navigateByUrl('/auth');
     return EMPTY;
   }

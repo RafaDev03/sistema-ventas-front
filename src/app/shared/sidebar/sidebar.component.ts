@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,4 +8,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  estadoSidebar: boolean = false;
+  @Output() sidebarClickEmit = new EventEmitter<boolean>();
+
+  sidebarClick() {
+    this.estadoSidebar = !this.estadoSidebar;
+    console.log(this.estadoSidebar);
+    this.sidebarClickEmit.emit(this.estadoSidebar);
+  }
+}

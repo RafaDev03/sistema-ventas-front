@@ -24,24 +24,8 @@ const base_url = environment.base_url;
 })
 export class AuthService {
   private _isRefreshing = false;
-  private _refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
-    null
-  );
-  private _queuedRequests: Array<{ req: HttpRequest<any>; next: any }> = [];
 
   constructor(private http: HttpClient, private router: Router) {}
-
-  enqueueRequest(req: HttpRequest<any>, next: any) {
-    return new Observable((observer) => {
-      this._queuedRequests.push({ req, next });
-      this._refreshTokenSubject.subscribe((token) => {
-        if (token) {
-          observer.next(next(this.addTokenHeader(req)));
-          observer.complete();
-        }
-      });
-    });
-  }
 
   login(LoginForm: LoginInterface) {
     return this.http.post(URL_AUTH_LOGIN, LoginForm).pipe(
@@ -57,15 +41,6 @@ export class AuthService {
     console.log('Token de refresco obtenido:', refreshToken);
 
     return this.http.post(URL_AUTH_REFRESH, { refreshToken });
-  }
-  // Método para procesar las peticiones en cola
-  private processQueuedRequests() {
-    while (this._queuedRequests.length > 0) {
-      const queued = this._queuedRequests.shift();
-      if (queued) {
-        queued.next(this.addTokenHeader(queued.req)).subscribe();
-      }
-    }
   }
 
   getAccessToken() {
@@ -100,5 +75,8 @@ export class AuthService {
 
   set isRefreshing(value) {
     this._isRefreshing = value;
+  }
+  get isLoggedIn() {
+    return this.getAccessToken() && this.getRefreshToken();
   }
 }

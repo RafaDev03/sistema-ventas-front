@@ -1,5 +1,5 @@
-<div class="wrapper">
-  <app-sidebar></app-sidebar>
+<div [ngClass]="['wrapper', sidebarStatus ? '' : 'sidebar_minimize']">
+  <app-sidebar (sidebarClickEmit)="sidebarStatus = $event"></app-sidebar>
   <div class="main-panel">
     <app-header></app-header>
     <div class="container">
@@ -7,7 +7,6 @@
         <router-outlet></router-outlet>
       </div>
     </div>
-
     <app-footer></app-footer>
   </div>
 </div>
