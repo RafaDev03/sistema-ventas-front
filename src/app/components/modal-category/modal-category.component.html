@@ -1,1 +1,28 @@
-<p>modal-category works!</p>
+<h2 mat-dialog-title>Formulario de Categorías</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="categoryForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Nombre" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onCancel()"
+    class="btn btn-danger"
+  >
+    Cancelar
+  </button>
+  &nbsp; &nbsp;
+  <button
+    mat-button
+    [disabled]="categoryForm.invalid"
+    class="btn btn-primary"
+    (click)="guardarCategory()"
+  >
+    {{ getTitle() }}
+  </button>
+</mat-dialog-actions>

@@ -14,7 +14,6 @@ export class SidebarComponent {
 
   sidebarClick() {
     this.estadoSidebar = !this.estadoSidebar;
-    console.log(this.estadoSidebar);
     this.sidebarClickEmit.emit(this.estadoSidebar);
   }
 }

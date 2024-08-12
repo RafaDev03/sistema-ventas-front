@@ -6,6 +6,7 @@ import { ModalProviderComponent } from '../../../components/modal-provider/modal
 import { DataService } from '../../../services/data.service';
 import { NotificationsService } from '../../../services/notifications.service';
 import { AuthService } from '../../../services/auth.service';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-provider',
@@ -26,6 +27,7 @@ export class ProviderComponent implements OnInit {
   ngOnInit(): void {
     this.findProviders();
     this.dataService.dataUpdated$.subscribe(() => {
+      console.log('Componente Provider');
       this.findProviders();
     });
   }
@@ -39,8 +41,11 @@ export class ProviderComponent implements OnInit {
   }
 
   findProviders() {
-    this.providerService.findAll().subscribe((resp: any) => {
-      this.providers = resp.data;
+    this.providerService.findAll().subscribe({
+      next: (res: any) => {
+        this.providers = res.data;
+      },
+      error: (err: any) => console.log(err),
     });
   }
 

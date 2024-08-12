@@ -4,14 +4,14 @@
       <div class="card-title">Lista de Proveedores</div>
       <div class="card-tools">
         <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
-          <span class="btn-label">
+          <span class="btn-label">@
             <i class="fa fa-pencil"></i>
           </span>
           Export
         </a>
         <a href="#" class="btn btn-label-info btn-round btn-sm">
-          <span class="btn-label">
-            <i class="fa fa-print"></i>
+          <span class="btn-label">@
+            <i class="fas fa-plus"></i>
           </span>
           Print
         </a>

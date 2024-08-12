@@ -2,18 +2,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { LoginInterface } from '../interfaces/login.interface';
-import {
-  BehaviorSubject,
-  catchError,
-  delay,
-  finalize,
-  map,
-  Observable,
-  of,
-  Subject,
-  tap,
-  throwError,
-} from 'rxjs';
+import { tap } from 'rxjs';
 import { URL_AUTH_LOGIN, URL_AUTH_REFRESH } from './urls';
 import { Router } from '@angular/router';
 
@@ -38,8 +27,6 @@ export class AuthService {
 
   refreshToken() {
     const refreshToken = this.getRefreshToken();
-    console.log('Token de refresco obtenido:', refreshToken);
-
     return this.http.post(URL_AUTH_REFRESH, { refreshToken });
   }
 

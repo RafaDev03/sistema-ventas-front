@@ -1,1 +1,52 @@
-<p>category works!</p>
+<div class="card card-round">
+  <div class="card-header">
+    <div class="card-head-row">
+      <div class="card-title">Lista de Categorías</div>
+      <div class="card-tools">
+        <!-- <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
+          <span class="btn-label">
+            <i class="fa fa-pencil"></i>
+          </span>
+          Export
+        </a> -->
+        <a class="btn btn-label-info btn-round btn-sm" (click)="openModal()">
+          <span class="btn-label">
+            <i class="fas fa-plus"></i>
+          </span>
+          Agregar
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (category of categories; track $index) {
+        <tr>
+          <td>{{ category.id }}</td>
+          <td>{{ category.nombre }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="openModalEdit(category)">
+              <i class="fas fa-edit"></i>
+            </button>
+            &nbsp; &nbsp;
+            <button
+              class="btn btn-danger"
+              (click)="deleteCategory(category.id, category.nombre)"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

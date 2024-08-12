@@ -12,6 +12,7 @@ export class ModalService {
 
   openModal(component: any, data?: any, isEditing = false): void {
     const config = { data, isEditing };
+    console.log(config);
     this.dialog.open(component, {
       width: '500px',
       data: config,

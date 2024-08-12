@@ -8,11 +8,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProviderService } from '../../services/provider.service';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialog,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { ModalService } from '../../services/modal.service';
 import { DataService } from '../../services/data.service';
 import { NotificationsService } from '../../services/notifications.service';
@@ -36,8 +32,8 @@ export class ModalProviderComponent {
     private fb: FormBuilder,
     private providerService: ProviderService,
     private modalService: ModalService,
-    private dataService: DataService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private dataService: DataService
   ) {}
   ngOnInit(): void {
     this.buildForm();
@@ -53,8 +49,8 @@ export class ModalProviderComponent {
     const provider = this.providerForm.value;
     if (!this.dialogData.data) {
       this.providerService.saveProvider(provider).subscribe((resp) => {
-        this.dataService.notificar();
         this.modalService.closeModal();
+        this.dataService.notificar();
         this.notificationsService.showSuccess(
           'Proveedor guardado correctamente'
         );
@@ -63,8 +59,8 @@ export class ModalProviderComponent {
       this.providerService
         .updateProvicer(this.dialogData.data.id, provider)
         .subscribe((resp) => {
-          this.dataService.notificar();
           this.modalService.closeModal();
+          this.dataService.notificar();
           this.notificationsService.showSuccess(
             'Proveedor actualizado correctamente'
           );
