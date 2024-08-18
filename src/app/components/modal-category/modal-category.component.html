@@ -3,7 +3,12 @@
   <form [formGroup]="categoryForm" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nombre" placeholder="Nombre" />
+      <input
+        matInput
+        formControlName="nombre"
+        placeholder="Nombre"
+        (keydown.enter)="guardarCategory()"
+      />
     </mat-form-field>
   </form>
 </mat-dialog-content>

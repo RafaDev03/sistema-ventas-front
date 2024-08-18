@@ -1,1 +1,77 @@
-<p>modal-product works!</p>
+<h2 mat-dialog-title>Formulario de Productos</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="productForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Nombre" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Precio</mat-label>
+      <input
+        matInput
+        formControlName="precio"
+        placeholder="Precio"
+        type="number"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Stock</mat-label>
+      <input
+        matInput
+        formControlName="stock"
+        placeholder="Stock"
+        type="number"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoria">
+        @for (category of categories; track $index) {
+        <mat-option [value]="category.id">{{ category.nombre }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Proveedores</mat-label>
+
+      <mat-select formControlName="proveedores">
+        @for (provider of providers; track $index) {
+        <mat-option [value]="provider.id">{{ provider.nombre }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Marca</mat-label>
+
+      <mat-select formControlName="marca">
+        @for (provider of providers; track $index) {
+        <mat-option [value]="provider.id">{{ provider.nombre }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onCancel()"
+    class="btn btn-danger"
+  >
+    Cancelar
+  </button>
+  &nbsp; &nbsp;
+  <button
+    mat-button
+    [disabled]="productForm.invalid"
+    (click)="saveProduct()"
+    class="btn btn-primary"
+  >
+    {{ getTitle() }}
+  </button>
+</mat-dialog-actions>

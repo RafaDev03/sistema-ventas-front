@@ -62,13 +62,4 @@ export class ProviderComponent implements OnInit {
         }
       });
   }
-
-  refresh() {
-    this.authService.refreshToken().subscribe({
-      next: (response: any) => {
-        this.authService.updateTokens(response.jwt, response.refreshToken);
-      },
-      error: (err) => console.error('Error refreshing token:', err),
-    });
-  }
 }
